@@ -1,5 +1,6 @@
 # Deadair Scripts
-## 20250923 I have decided to completely retire from X4 Modding. I have added licenses to Eco, Scripts, and DeadTater if any persons are interested in using, modifying, or continuing my works. Thank you for all the support and interest in my work over these years.
+Big thanks to DeadAir for his contributions to X4 modding. This is a fork of his original work, with the references to DA Wares from deadair_eco removed.
+
 ## Dynamic Universe
 Collection of my custom scripts that aims to reduce the static nature of X4 Foundations and expand the sandbox experience. Readme is often out of date on features or numbers so feel free to contact me on the Egosoft Discord or check patch notes on pushes.
 ## Menu Option Information
@@ -80,7 +81,7 @@ Collection of my custom scripts that aims to reduce the static nature of X4 Foun
 - aiscripts\order.move.recon.xml - Adds signalling for when player owned police ships scan.
 - libraries\baskets.xml - Only adds to file.
 - libraries\equipmentmods.xml - Only adds to file.
-- libraries\jobs.xml - Only adds to file.
+- libraries\jobs.xml - Only adds to file.git 
 - libraries\mapdefaults.xml - Only adds to file. May cause issues with other mods that use sector tags for xenon sectors.
 - libraries\modules.xml - Removes teladi from refined metals module definition.
 - libraries\wares.xml - Only adds to file.
