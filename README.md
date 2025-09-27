@@ -1,6 +1,9 @@
 # Deadair Scripts
 Big thanks to DeadAir for his contributions to X4 modding. This is a fork of his original work, with the references to DA Wares from deadair_eco removed.
 
+### 1.15
+- Fix BP scanning logic to account for non-components (thrusters, drones, deployables, missiles)
+
 ## Dynamic Universe
 Collection of my custom scripts that aims to reduce the static nature of X4 Foundations and expand the sandbox experience. Readme is often out of date on features or numbers so feel free to contact me on the Egosoft Discord or check patch notes on pushes.
 ## Menu Option Information

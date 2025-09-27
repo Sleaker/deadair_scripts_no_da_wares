@@ -10990,7 +10990,7 @@
 								<do_if value="$DAGodLocWares.count" min="1">
 									<sort_list list="$DAGodLocWares" sortbyvalue="loop.element.id"/>
 									<do_for_each name="$DAGodLocWare" in="$DAGodLocWares">
-										<do_if value="$DADVT.$DAGodDefaultModuleQuotas.keys.list.indexof.{$DAGodLocWare} and (not $DADVT.$DAGodFactionModuleQuotas.{$DAGodLocFaction}.{$DAGodLocWare}?)">
+										<do_if value="$DADVT.$DAGodDefaultModuleQuotas.{$DAGodLocWare}? and (not $DADVT.$DAGodFactionModuleQuotas.{$DAGodLocFaction}.{$DAGodLocWare}?)">
 											<get_module_definition macro="$DAGodLocModuleMacro" tags="[tag.production, tag.module]" faction="$DAGodLocFaction" race="$DAGodLocFaction.primaryrace" ware="$DAGodLocWare"/>
 											<do_if value="$DAGodLocModuleMacro">
 												<set_value name="$DADVT.$DAGodFactionModuleQuotas.{$DAGodLocFaction}.{$DAGodLocWare}" exact="[$DAGodLocModuleMacro,$DADVT.$DAGodDefaultModuleQuotas.{$DAGodLocWare}]"/>
@@ -11484,14 +11484,61 @@
 						<set_value name="$LocParent" exact="event.param.{1}"/>
 						<set_value name="$LocScanLevel" exact="event.param.{2}"/>
 						<set_value name="$LocAlreadyGainedCredit" exact="[]"/>
+						<set_value name="$LocStorableMacros" exact="[]"/>
+
+						<!-- Check for different deployables/units carried by the unit -->
+						<do_for_each name="$LocStorable" in="$LocParent.ammostorage.deployable.table.keys.list">
+
+							<do_if value="$LocParent.ammostorage.deployable.table.{$LocStorable} gt 0">
+								<do_if value="$DADVT.$DABPDebugEnable">
+									<debug_text text="'MOD: DABP -- EventBPCheckDeployable -- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.ammostorage.deployable.table.{$LocStorable}]" context="false" filter="scripts"/>
+								</do_if>
+								<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
+							</do_if>
+						</do_for_each>
+						<remove_value name="$LocStorable"/>
+
+						<do_for_each name="$LocStorable" in="$LocParent.ammostorage.missile.table.keys.list">
+							
+							<do_if value="$LocParent.ammostorage.missile.table.{$LocStorable} gt 0">
+								<do_if value="$DADVT.$DABPDebugEnable">
+									<debug_text text="'MOD: DABP -- EventBPCheckAmmo -- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.ammostorage.missile.table.{$LocStorable}]" context="false" filter="scripts"/>
+								</do_if>
+								<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
+							</do_if>
+						</do_for_each>
+						<remove_value name="$LocStorable"/>
+
+						<do_for_each name="$LocStorable" in="$LocParent.ammostorage.countermeasure.table.keys.list">
+							<do_if value="$LocParent.ammostorage.countermeasure.table.{$LocStorable} gt 0">
+								<do_if value="$DADVT.$DABPDebugEnable">
+									<debug_text text="'MOD: DABP -- EventBPCheckCountermeasures-- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.ammostorage.countermeasure.table.{$LocStorable}]" context="false" filter="scripts"/>
+								</do_if>
+								<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
+							</do_if>
+						</do_for_each>
+						<remove_value name="$LocStorable"/>
+
+						<do_for_each name="$LocStorable" in="$LocParent.units.table.keys.list">
+							<do_if value="$LocParent.units.table.{$LocStorable} gt 0">
+								<do_if value="$DADVT.$DABPDebugEnable">
+									<debug_text text="'MOD: DABP -- EventBPCheckUnits-- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.units.table.{$LocStorable}]" context="false" filter="scripts"/>
+								</do_if>
+								<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
+							</do_if>
+						</do_for_each>
+						<remove_value name="$LocStorable"/>
+						<do_for_each name="$LocWare" in="$LocParent.loadout.wares.list">
+							<do_if value="$LocWare.group.name == 'Thrusters'">
+								<append_to_list name="$LocStorableMacros" exact="$ware.objectmacro"/>
+							</do_if>
+						</do_for_each>
+						<remove_value name="$LocWare"/>
 						
-						<do_for_each name="$ware" in="$LocParent.loadout.wares.list">
-							<debug_text text="'MOD: DABP -- EventBPCheckComponents -- NonComponent: %s -- %s -- %s -- %s -- %s'.[@$ware.id, @$ware.name, @$ware.objectmacro.id, @$ware.group.name, @$ware.group.id]" context="false" filter="scripts"/>
-							<!-- Standard scanning doesn't work for thrusters, deployables, and ammo so pull them from the ship loadout -->
-							<do_if value="($ware.group.name == 'Thrusters' or $ware.isdeployable or $ware.isammo) and (not $LocAlreadyGainedCredit.indexof.{$ware.objectmacro})">
-								<set_value name="$LocMacro" exact="$ware.objectmacro"/>
+						<do_for_each name="$LocMacro" in="$LocStorableMacros">
+							<do_if value="(not $LocAlreadyGainedCredit.indexof.{$LocMacro})">
 								<append_to_list name="$LocAlreadyGainedCredit" exact="$LocMacro"/>
-								<set_value name="$LocWare" exact="$ware"/>
+								<set_value name="$LocWare" exact="$LocMacro.ware"/>
 								<do_if value="$LocWare? and $LocWare and (typeof $LocWare == datatype.ware)">
 									<do_if value="(not player.blueprints.{$LocWare}.any.exists) and (not $LocWare.hasanytag.{[tag.noplayerblueprint,tag.noblueprint,tag.inventory,tag.tradeonly,tag.crafting,tag.missiononly,tag.economy,tag.research,tag.workunit]})">
 										<do_if value="not $DADVT.$DABPTracking.{$LocWare}?">
@@ -11503,11 +11550,12 @@
 									</do_if>
 								</do_if>
 								<remove_value name="$LocWare"/>
-								<remove_value name="$LocMacro"/>
 							</do_if>
 						</do_for_each>
-						<remove_value name="$ware"/>
-						<find_object_component groupname="$LocComponentGroup" class="[class.engine, class.turret, class.missileturret, class.missilelauncher, class.shieldgenerator, class.weapon]" object="$LocParent" multiple="true" recursive="true"/>
+						<remove_value name="$LocMacro"/>
+						<remove_value name="$LocStorableMacros"/>
+ 						<!-- Note: class.missilelauncher, class.turret, and class.missileturret are all subclasses of class.weapon, so this should cover all weapons. -->
+						<find_object_component groupname="$LocComponentGroup" class="[class.engine, class.shieldgenerator, class.weapon]" object="$LocParent" multiple="true"/>
 						<do_if value="$LocComponentGroup.count" min="1">
 							<do_for_each name="$LocComponent" in="$LocComponentGroup">
 								<do_if value="$LocComponent.macro? and (not $LocAlreadyGainedCredit.indexof.{$LocComponent.macro})">
