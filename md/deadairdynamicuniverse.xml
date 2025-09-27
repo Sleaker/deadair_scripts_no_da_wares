@@ -5050,8 +5050,8 @@
 						<check_value value="$DADVT.$DAJobsSSTEnable"/>
 						<check_value value="$DAJSST.$PrerequisitesComplete"/>
 						<check_value value="$DAJSST.$ReadyToOrderShips"/>
-						<check_value value="$DADVT.$DAJobsSSTJobSizeQuotas.keys.list.count" min="1"/>
-						<check_value value="$DAJSST.$JobsActivated.keys.list.count" min="1"/>
+						<check_value value="$DADVT.$DAJobsSSTJobSizeQuotas.keys.count" min="1"/>
+						<check_value value="$DAJSST.$JobsActivated.keys.count" min="1"/>
 					</conditions>
 					<actions>
 						<!-- Reworked 20240520
@@ -5508,7 +5508,7 @@
 							</do_elseif>
 						</do_for_each>
 						<do_if value="$DADVT.$DAJobsSSTXtremelyDetailedDebug or $LocDebug">
-							<debug_text text="'MOD: DAJobsSST -- Initial Faction Check Complete -- SST Factions: %s -- Claimspace Factions: %s'.[$DADVT.$DAJobsSSTJobSizeQuotas.keys.list.count,$LocClaimspaceList.count]" context="false" filter="scripts"/>
+							<debug_text text="'MOD: DAJobsSST -- Initial Faction Check Complete -- SST Factions: %s -- Claimspace Factions: %s'.[$DADVT.$DAJobsSSTJobSizeQuotas.keys.count,$LocClaimspaceList.count]" context="false" filter="scripts"/>
 							<debug_text text="$LocDebugString" context="false" filter="scripts"/>
 						</do_if>
 						<!-- Inlcude default override library for easy diff changes -->
@@ -9133,7 +9133,7 @@
 					<conditions>
 						<check_value value="$DADVT.$DAGodEnable"/>
 						<check_value value="$DADVT.$DAGodStationUpgradeEnable"/>
-						<check_value value="$DADVT.$DAGodFactionModuleQuotas? and $DADVT.$DAGodFactionModuleQuotas.keys.list.count"/>
+						<check_value value="$DADVT.$DAGodFactionModuleQuotas? and $DADVT.$DAGodFactionModuleQuotas.keys.count"/>
 					</conditions>
 					<actions>
 						<set_value name="$DAGLocExcluded" exact="[faction.player,faction.xenon,faction.khaak]"/>
@@ -9268,11 +9268,11 @@
 							<remove_from_list name="$DAGodWareKeysList" list="$DAGodWareKeysRemovalList" multiple="true"/>
 						</do_if>
 						<!-- Signal cue that orders modules in order -->
-						<do_if value="$DADVT.$DAGodModuleOrderTable.{$DAGodFaction}.keys.list.count" min="1">
+						<do_if value="$DADVT.$DAGodModuleOrderTable.{$DAGodFaction}.keys.count" min="1">
 							<signal_cue_instantly cue="EventGodModuleQueue" param="[$DAGodFaction,$DAGodWareKeysList]"/>
 						</do_if>
 						<do_else>
-							<debug_text text="'MOD: DAGod -- EventGodSignalledActive -- ERROR:UNHANDLED -- Invalid $DADVT.$DAGodModuleOrderTable.{%s}.keys.list.count: %s'.[$DAGodFaction,$DADVT.$DAGodModuleOrderTable.{$DAGodFaction}.keys.list.count]" context="true" filter="error"/>
+							<debug_text text="'MOD: DAGod -- EventGodSignalledActive -- ERROR:UNHANDLED -- Invalid $DADVT.$DAGodModuleOrderTable.{%s}.keys.count: %s'.[$DAGodFaction,$DADVT.$DAGodModuleOrderTable.{$DAGodFaction}.keys.count]" context="true" filter="error"/>
 						</do_else>
 						<do_if value="$DADVT.$DAGodDetailedDebug">
 							<debug_text text="'MOD: DAGod -- EventGodSignalledActive -- Finished signalling EventGodModuleQueue for %s -- Ware typed ordered: %s'.[$DAGodFaction.id,$DAGodWareTypesOrdered]" context="false" filter="scripts"/>
@@ -10979,7 +10979,7 @@
 						<!-- Use $DADVT.$DAGodFactionModuleQuotas.{$DAGodLocFaction} -->
 						<!-- DONE: Rework to handle factions that aren't currently active...how -->
 						<!-- DONE: Fix teladi getting refined metals... egosoft has entries for teladi race factions in modules.xml for refinedmetals even though they don't use it. Diff'd -->
-						<do_if value="$DADVT.$DAGodFactionModuleQuotas.keys.list.count" min="1">
+						<do_if value="$DADVT.$DAGodFactionModuleQuotas.keys.count" min="1">
 							<set_value name="$DAGodLocFactionsList" exact="[]"/>
 							<append_list_elements name="$DAGodLocFactionsList" other="$DADVT.$DAGodFactionModuleQuotas.keys.list"/>
 							<sort_list list="$DAGodLocFactionsList" sortbyvalue="loop.element.id"/>
@@ -12470,7 +12470,7 @@
 									<set_value name="$HasAHive" exact="false"/>
 									<create_group groupname="$LocStationGroup"/>
 									<create_group groupname="$LocPatrolGroup"/>
-									<do_if value="$DAGVT.$DAInfestationTable.$SectorTable.{$LocSector}.keys.list.count" min="1">
+									<do_if value="$DAGVT.$DAInfestationTable.$SectorTable.{$LocSector}.keys.count" min="1">
 										<do_for_each name="$Key" in="$DAGVT.$DAInfestationTable.$SectorTable.{$LocSector}.keys.list">
 											<do_if value="$DAGVT.$DAInfestationTable.$SectorTable.{$LocSector}.{$Key}.{2}.count" min="1">
 												<set_value name="$HasAHive" exact="true"/>
