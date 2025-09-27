@@ -1,5 +1,7 @@
-# Deadair Scripts
+# Deadair Scripts (No DA Wares)
 Big thanks to DeadAir for his contributions to X4 modding. This is a fork of his original work, with the references to DA Wares from deadair_eco removed.
+
+Please use [DeadAir Eco - No DA Wares](https://github.com/Sleaker/deadair_eco_no_da_wares) with this.
 
 ### 1.15
 - Fix BP scanning logic to account for non-components (thrusters, drones, deployables, missiles)
