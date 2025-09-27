@@ -11484,7 +11484,30 @@
 						<set_value name="$LocParent" exact="event.param.{1}"/>
 						<set_value name="$LocScanLevel" exact="event.param.{2}"/>
 						<set_value name="$LocAlreadyGainedCredit" exact="[]"/>
-						<find_object_component groupname="$LocComponentGroup" class="[class.engine, class.turret, class.shieldgenerator, class.weapon]" object="$LocParent" multiple="true"/>
+						
+						<do_for_each name="$ware" in="$LocParent.loadout.wares.list">
+							<debug_text text="'MOD: DABP -- EventBPCheckComponents -- NonComponent: %s -- %s -- %s -- %s -- %s'.[@$ware.id, @$ware.name, @$ware.objectmacro.id, @$ware.group.name, @$ware.group.id]" context="false" filter="scripts"/>
+							<!-- Standard scanning doesn't work for thrusters, deployables, and ammo so pull them from the ship loadout -->
+							<do_if value="($ware.group.name == 'Thrusters' or $ware.isdeployable or $ware.isammo) and (not $LocAlreadyGainedCredit.indexof.{$ware.objectmacro})">
+								<set_value name="$LocMacro" exact="$ware.objectmacro"/>
+								<append_to_list name="$LocAlreadyGainedCredit" exact="$LocMacro"/>
+								<set_value name="$LocWare" exact="$ware"/>
+								<do_if value="$LocWare? and $LocWare and (typeof $LocWare == datatype.ware)">
+									<do_if value="(not player.blueprints.{$LocWare}.any.exists) and (not $LocWare.hasanytag.{[tag.noplayerblueprint,tag.noblueprint,tag.inventory,tag.tradeonly,tag.crafting,tag.missiononly,tag.economy,tag.research,tag.workunit]})">
+										<do_if value="not $DADVT.$DABPTracking.{$LocWare}?">
+											<include_actions ref="LibraryBPCheckUnknown"/>
+										</do_if>
+										<do_if value="$DADVT.$DABPTracking.{$LocWare}? and $LocScanLevel?">
+											<signal_cue_instantly cue="EventBPAddProgress" param="[$LocWare,$LocMacro,$LocScanLevel]"/>
+										</do_if>
+									</do_if>
+								</do_if>
+								<remove_value name="$LocWare"/>
+								<remove_value name="$LocMacro"/>
+							</do_if>
+						</do_for_each>
+						<remove_value name="$ware"/>
+						<find_object_component groupname="$LocComponentGroup" class="[class.engine, class.turret, class.missileturret, class.missilelauncher, class.shieldgenerator, class.weapon]" object="$LocParent" multiple="true" recursive="true"/>
 						<do_if value="$LocComponentGroup.count" min="1">
 							<do_for_each name="$LocComponent" in="$LocComponentGroup">
 								<do_if value="$LocComponent.macro? and (not $LocAlreadyGainedCredit.indexof.{$LocComponent.macro})">
