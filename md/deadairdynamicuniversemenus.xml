@@ -3907,7 +3907,7 @@
 						<event_cue_signalled/>
 					</conditions>
 					<actions>
-						<do_if value="$DADVT.$DAFillEnable and $DADVT.$DAFillFactionAccounts.keys.list.count">
+						<do_if value="$DADVT.$DAFillEnable and $DADVT.$DAFillFactionAccounts.keys.count">
 							<!-- HEADER -->
 							<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 							<set_value name="$LocText" exact="'%s %s'.[{1001,43},{1001,7773}]" comment="Faction Account"/>
@@ -3966,7 +3966,7 @@
 									$cellBGColor = 'Color.row_separator',
 								]"/>
 						</do_if>
-						<do_if value="$DADVT.$DAFillEnable and $DADVT.$DAFillWareStatistics.keys.list.count">
+						<do_if value="$DADVT.$DAFillEnable and $DADVT.$DAFillWareStatistics.keys.count">
 							<!-- SUBMENUS HEADER -->
 							<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 							<set_value name="$LocText" exact="'%s %s / %s'.[{1001,46},{33232474,2200},{33232474,2201}]" comment="Wares Added / Removed"/>
@@ -4031,7 +4031,7 @@
 									$cellBGColor = 'Color.row_separator',
 								]"/>
 						</do_if>
-						<do_if value="$DADVT.$DAFillEnable and $DADVT.$DAFillShipmodStatistics.keys.list.count">
+						<do_if value="$DADVT.$DAFillEnable and $DADVT.$DAFillShipmodStatistics.keys.count">
 							<!-- SUBMENUS HEADER -->
 							<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 							<set_value name="$LocText" exact="'%s %s'.[{1001,6},{33232474,2202}]" comment="Ships Modified"/>
@@ -4613,7 +4613,7 @@
 								
 								Horizontal Line
 						-->
-						<do_if value="$DADVT.$DAJobsSSTEnable and $DADVT.$DAJobsSSTJobSizeQuotas.keys.list.count">
+						<do_if value="$DADVT.$DAJobsSSTEnable and $DADVT.$DAJobsSSTJobSizeQuotas.keys.count">
 							<set_value name="$DAJobsSSTLocFactionsList" exact="[]"/>
 							<append_list_elements name="$DAJobsSSTLocFactionsList" other="$DADVT.$DAJobsSSTJobSizeQuotas.keys.list"/>
 							<sort_list list="$DAJobsSSTLocFactionsList" sortbyvalue="loop.element.knownname"/>
@@ -4625,7 +4625,7 @@
 										$text = '%s (%s)'.[$LocFaction.knownname,$LocFaction.shortname],
 										$halign = 'center',
 									]"/>
-								<do_if value="$DADVT.$DAJobsSSTJobSizeQuotas.{$LocFaction}? and $DADVT.$DAJobsSSTJobSizeQuotas.{$LocFaction}.keys.list.count">
+								<do_if value="$DADVT.$DAJobsSSTJobSizeQuotas.{$LocFaction}? and $DADVT.$DAJobsSSTJobSizeQuotas.{$LocFaction}.keys.count">
 									<set_value name="$LocPossibleTags" exact="['$CriticalTag','$CoreTag','$BorderTag','$ContestedTag','$LTraderTag','$MTraderTag','$LMinerTag','$MMinerTag','$LGasMinerTag','$MGasMinerTag']"/>
 									<set_value name="$TagText" exact="[246,247,248,249,255,256,257,258,259,260]"/>
 									<set_value name="$TagHoverText" exact="[1246,1247,1248,1249,1255,1256,1257,1258,1259,1260]"/>
@@ -4801,7 +4801,7 @@
 								$halign = 'center',
 							]"/>
 						</do_elseif>
-						<do_elseif value="not $DADVT.$DAJobsSSTJobSizeQuotas.keys.list.count">
+						<do_elseif value="not $DADVT.$DAJobsSSTJobSizeQuotas.keys.count">
 							<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 							<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[
 								$col = 1,
@@ -5713,7 +5713,7 @@
 								$cellBGColor = 'Color.row_separator',
 							]"/>
 						<!-- IMPORTANT OPTION BODY -->
-						<do_if value="$DADVT.$DAGodEnable and $DADVT.$DAGodFactionModuleQuotas? and $DADVT.$DAGodFactionModuleQuotas.keys.list.count">
+						<do_if value="$DADVT.$DAGodEnable and $DADVT.$DAGodFactionModuleQuotas? and $DADVT.$DAGodFactionModuleQuotas.keys.count">
 							<include_actions ref="DA_God_Activate_All_Button"/>
 						</do_if>
 						<do_elseif value="not $DADVT.$DAGodEnable">
@@ -5774,7 +5774,7 @@
 						<event_cue_signalled/>
 					</conditions>
 					<actions>
-						<do_if value="$DADVT.$DAGodEnable and $DADVT.$DAGodFactionModuleQuotas? and $DADVT.$DAGodFactionModuleQuotas.keys.list.count">
+						<do_if value="$DADVT.$DAGodEnable and $DADVT.$DAGodFactionModuleQuotas? and $DADVT.$DAGodFactionModuleQuotas.keys.count">
 							<!-- DONE: Sort by faction knownname -->
 							<set_value name="$DAGodLocFactionsList" exact="[]"/>
 							<append_list_elements name="$DAGodLocFactionsList" other="$DADVT.$DAGodFactionModuleQuotas.keys.list"/>
@@ -5782,7 +5782,7 @@
 							<!-- Activate All Button -->
 							<include_actions ref="DA_God_Activate_All_Button"/>
 							<do_for_each name="$LocFaction" in="$DAGodLocFactionsList">
-								<do_if value="$DADVT.$DAGodFactionModuleQuotas.{$LocFaction}? and ($DADVT.$DAGodFactionModuleQuotas.{$LocFaction}.keys.list.count gt 1)">
+								<do_if value="$DADVT.$DAGodFactionModuleQuotas.{$LocFaction}? and ($DADVT.$DAGodFactionModuleQuotas.{$LocFaction}.keys.count gt 1)">
 									<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 									<set_value name="$LocText" exact="'%s (%s)'.[$LocFaction.knownname,$LocFaction.shortname]"/>
 									<do_if value="$LocFaction.isactive and (not $DADVT.$DAGodFactionsTriggered.indexof.{$LocFaction})">
@@ -6128,7 +6128,7 @@
 						<do_if value="event.param.$echo.count">
 							<set_value name="$LocFactions" exact="event.param.$echo"/>
 							<do_for_each name="$LocFaction" in="$LocFactions">
-								<do_if value="$LocFaction.isactive and (not $DADVT.$DAGodFactionsTriggered.indexof.{$LocFaction}) and $DADVT.$DAGodFactionModuleQuotas.{$LocFaction}? and ($DADVT.$DAGodFactionModuleQuotas.{$LocFaction}.keys.list.count gt 1)">
+								<do_if value="$LocFaction.isactive and (not $DADVT.$DAGodFactionsTriggered.indexof.{$LocFaction}) and $DADVT.$DAGodFactionModuleQuotas.{$LocFaction}? and ($DADVT.$DAGodFactionModuleQuotas.{$LocFaction}.keys.count gt 1)">
 									<do_if value="$DADVT.$DAGodFactionModuleQuotas.{$LocFaction}.$Enabled? and ($DADVT.$DAGodFactionModuleQuotas.{$LocFaction}.$Enabled != true)">
 										<set_value name="$DADVT.$DAGodFactionModuleQuotas.{$LocFaction}.$Enabled" exact="true"/>
 									</do_if>
@@ -6147,8 +6147,8 @@
 								<do_elseif value="$DADVT.$DAGodFactionsTriggered.indexof.{$LocFaction}">
 									<debug_text text="'MOD: DAMenus God : ExecuteOption_GodTriggerMultipleFactions -- %s -- Attempted to trigger on an already triggered faction'.[$LocFaction]" context="false" filter="error"/>
 								</do_elseif>
-								<do_elseif value="not ($DADVT.$DAGodFactionModuleQuotas.{$LocFaction}? and ($DADVT.$DAGodFactionModuleQuotas.{$LocFaction}.keys.list.count gt 1))">
-									<debug_text text="'MOD: DAMenus God : ExecuteOption_GodTriggerMultipleFactions -- %s -- Attempted to trigger on faction without table set up -- $DADVT.$DAGodFactionModuleQuotas.{%s}?: %s -- $DADVT.$DAGodFactionModuleQuotas.{%s}.keys.list.count: %s'.[$LocFaction,$LocFaction,$DADVT.$DAGodFactionModuleQuotas.{$LocFaction}?,$LocFaction,$DADVT.$DAGodFactionModuleQuotas.{$LocFaction}.keys.list.count]" context="false" filter="error"/>
+								<do_elseif value="not ($DADVT.$DAGodFactionModuleQuotas.{$LocFaction}? and ($DADVT.$DAGodFactionModuleQuotas.{$LocFaction}.keys.count gt 1))">
+									<debug_text text="'MOD: DAMenus God : ExecuteOption_GodTriggerMultipleFactions -- %s -- Attempted to trigger on faction without table set up -- $DADVT.$DAGodFactionModuleQuotas.{%s}?: %s -- $DADVT.$DAGodFactionModuleQuotas.{%s}.keys.count: %s'.[$LocFaction,$LocFaction,$DADVT.$DAGodFactionModuleQuotas.{$LocFaction}?,$LocFaction,$DADVT.$DAGodFactionModuleQuotas.{$LocFaction}.keys.count]" context="false" filter="error"/>
 								</do_elseif>
 							</do_for_each>
 							<remove_value name="$LocFactions"/>
@@ -6168,7 +6168,7 @@
 						<set_value name="$FactionsNotActivated" exact="[]"/>
 						<do_if value="$LocFactionList.count" min="1">
 							<do_for_each name="$LocFaction" in="$LocFactionList">
-								<do_if value="$LocFaction.isactive and (not $FactionsNotActivated.indexof.{$LocFaction}) and (not $DADVT.$DAGodFactionsTriggered.indexof.{$LocFaction}) and $DADVT.$DAGodFactionModuleQuotas.{$LocFaction}? and ($DADVT.$DAGodFactionModuleQuotas.{$LocFaction}.keys.list.count gt 1)">
+								<do_if value="$LocFaction.isactive and (not $FactionsNotActivated.indexof.{$LocFaction}) and (not $DADVT.$DAGodFactionsTriggered.indexof.{$LocFaction}) and $DADVT.$DAGodFactionModuleQuotas.{$LocFaction}? and ($DADVT.$DAGodFactionModuleQuotas.{$LocFaction}.keys.count gt 1)">
 									<append_to_list name="$FactionsNotActivated" exact="$LocFaction"/>
 								</do_if>
 							</do_for_each>
@@ -6353,7 +6353,7 @@
 								$mouseOverText = {33232474,1386},
 								$cellBGColor = $DAMVT.$HeaderBackgroundBright
 							]"/>
-							<do_all exact="$DADVT.$DABPClassRequirements.keys.list.count" counter="$A">
+							<do_all exact="$DADVT.$DABPClassRequirements.keys.count" counter="$A">
 								<!-- BODY -->
 								<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 								<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[
@@ -6554,7 +6554,7 @@
 								$halign = 'center',
 								$mouseOverText = {33232474,1386}
 							]"/>
-							<do_all exact="$DADVT.$DABPClassRequirements.keys.list.count" counter="$A">
+							<do_all exact="$DADVT.$DABPClassRequirements.keys.count" counter="$A">
 								<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 								<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[
 										$col = 1,
@@ -6609,7 +6609,7 @@
 						<event_cue_signalled/>
 					</conditions>
 					<actions>
-						<do_if value="$DADVT.$DABPTracking.keys.list.count">
+						<do_if value="$DADVT.$DABPTracking.keys.count">
 							<set_value name="$LocWareList" exact="[]"/>
 							<set_value name="$LocPrintedWareList" exact="[]"/>
 							<set_value name="$LocClasses" exact="[class.pier,class.dockarea,class.production,class.storage,class.defencemodule,class.buildmodule,class.habitation,class.welfaremodule,class.processingmodule,class.connectionmodule]"/>
@@ -6687,7 +6687,7 @@
 						<event_cue_signalled/>
 					</conditions>
 					<actions>
-						<do_if value="$DADVT.$DABPTracking.keys.list.count">
+						<do_if value="$DADVT.$DABPTracking.keys.count">
 							<set_value name="$LocWareList" exact="[]"/>
 							<set_value name="$LocPrintedWareList" exact="[]"/>
 							<set_value name="$LocClasses" exact="[class.ship_xs,class.ship_s,class.ship_m,class.ship_l,class.ship_xl]"/>
@@ -6765,7 +6765,7 @@
 						<event_cue_signalled/>
 					</conditions>
 					<actions>
-						<do_if value="$DADVT.$DABPTracking.keys.list.count">
+						<do_if value="$DADVT.$DABPTracking.keys.count">
 							<set_value name="$LocWareList" exact="[]"/>
 							<set_value name="$LocPrintedWareList" exact="[]"/>
 							<set_value name="$LocClasses" exact="[class.missileturret,class.turret,class.missilelauncher,class.engine,class.shieldgenerator,class.weapon,class.satellite,class.missile,class.countermeasure]"/>
@@ -6867,7 +6867,7 @@
 								$fontsize = 1,
 								$cellBGColor = 'Color.row_separator',
 							]"/>
-						<do_if value="$DADVT.$DABPTracking.keys.list.count">
+						<do_if value="$DADVT.$DABPTracking.keys.count">
 							<set_value name="$LocWareList" exact="[]"/>
 							<append_list_elements name="$LocWareList" other="$DADVT.$DABPTracking.keys.list"/>
 							<sort_list list="$LocWareList" sortbyvalue="loop.element.name"/>
