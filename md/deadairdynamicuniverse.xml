@@ -11508,32 +11508,37 @@
 							</do_if>
 						</do_for_each>
 						<remove_value name="$LocStorable"/>
-
-						<do_for_each name="$LocStorable" in="$LocParent.ammostorage.countermeasure.table.keys.list">
-							<do_if value="$LocParent.ammostorage.countermeasure.table.{$LocStorable} gt 0">
-								<do_if value="$DADVT.$DABPDebugEnable">
-									<debug_text text="'MOD: DABP -- EventBPCheckCountermeasures-- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.ammostorage.countermeasure.table.{$LocStorable}]" context="false" filter="scripts"/>
+						<do_if value="not $LocParent.ammostorage == null">
+							<do_for_each name="$LocStorable" in="$LocParent.ammostorage.countermeasure.table.keys.list">
+								<do_if value="$LocParent.ammostorage.countermeasure.table.{$LocStorable} gt 0">
+									<do_if value="$DADVT.$DABPDebugEnable">
+										<debug_text text="'MOD: DABP -- EventBPCheckCountermeasures-- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.ammostorage.countermeasure.table.{$LocStorable}]" context="false" filter="scripts"/>
+									</do_if>
+									<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
 								</do_if>
-								<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
-							</do_if>
-						</do_for_each>
-						<remove_value name="$LocStorable"/>
-
-						<do_for_each name="$LocStorable" in="$LocParent.units.table.keys.list">
-							<do_if value="$LocParent.units.table.{$LocStorable} gt 0">
-								<do_if value="$DADVT.$DABPDebugEnable">
-									<debug_text text="'MOD: DABP -- EventBPCheckUnits-- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.units.table.{$LocStorable}]" context="false" filter="scripts"/>
+							</do_for_each>
+							<remove_value name="$LocStorable"/>
+						</do_if>
+						<do_if value="not $LocParent.units == null">
+							<do_for_each name="$LocStorable" in="$LocParent.units.table.keys.list">
+								<do_if value="$LocParent.units.table.{$LocStorable} gt 0">
+									<do_if value="$DADVT.$DABPDebugEnable">
+										<debug_text text="'MOD: DABP -- EventBPCheckUnits-- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.units.table.{$LocStorable}]" context="false" filter="scripts"/>
+									</do_if>
+									<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
 								</do_if>
-								<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
-							</do_if>
-						</do_for_each>
-						<remove_value name="$LocStorable"/>
-						<do_for_each name="$LocWare" in="$LocParent.loadout.wares.list">
-							<do_if value="$LocWare.group.name == 'Thrusters'">
-								<append_to_list name="$LocStorableMacros" exact="$ware.objectmacro"/>
-							</do_if>
-						</do_for_each>
-						<remove_value name="$LocWare"/>
+							</do_for_each>
+							<remove_value name="$LocStorable"/>
+						</do_if>
+						
+						<do_if value="not $LocParent.loadout == null">
+							<do_for_each name="$LocWare" in="$LocParent.loadout.wares.list">
+								<do_if value="$LocWare.group.name == 'Thrusters'">
+									<append_to_list name="$LocStorableMacros" exact="$ware.objectmacro"/>
+								</do_if>
+							</do_for_each>
+							<remove_value name="$LocWare"/>
+						</do_if>
 						
 						<do_for_each name="$LocMacro" in="$LocStorableMacros">
 							<do_if value="(not $LocAlreadyGainedCredit.indexof.{$LocMacro})">

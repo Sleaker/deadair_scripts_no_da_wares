@@ -1,5 +1,5 @@
 # Deadair Scripts (No DA Wares)
-Big thanks to DeadAir for his contributions to X4 modding. This is a fork of his original work, with the references to DA Wares from deadair_eco removed.
+Big thanks to DeadAir for his contributions to X4 modding and releasing his mods under [GPL](LICENSE). This is a fork of his original work, with the references to DA Wares from deadair_eco removed.
 
 Please use [DeadAir Eco - No DA Wares](https://github.com/Sleaker/deadair_eco_no_da_wares) with this.
 
@@ -99,10 +99,3 @@ Collection of my custom scripts that aims to reduce the static nature of X4 Foun
 ## Installation Info
 - This mod is not compatible and must not be used with the older versions of Dynamic War, Evolution, Fill, Jobs, and Gate.
 - Folder should be named "deadair_scripts" in case of added assets in future.
-## Requesting Help
-- It is very helpful to have a debug log with the debug options enabled.
-- Include your mod list in any bug reports. There are a lot of poorly written mods out there.
-- Best place to contact me is via @ on Egosoft Discord modding channel.
-## Random Notes
-- Can't believe I have to add this. No, you are not allowed to just copy my stuff and put it into your own mod or modpack WITHOUT permission.
-
