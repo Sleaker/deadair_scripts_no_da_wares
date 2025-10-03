@@ -12317,7 +12317,7 @@
 												<!-- $DAGVT.$DAInfestationTable.$SectorTable.{$LocSector}.{$Key} = [$LocPos, $StationGroup, $PatrolGroup, $InfestationShipGroup, $TimeOfInfestation, $CurrentScaling, $PatrolLeader] -->
 												<!-- $DAGVT.$DAInfestationTable.$CurrentInfestationGoals.{$LocSecCheck}.{$Key} = [LiveGroupEnroute,RequestedAmount,GroupOfStationsWithThisGoal] -->
 												<do_if value="@event.param2 and (@event.param3.{1} == $LocSector) and @event.param3.{2}">
-													<do_if value="$DAGVT.$DAInfestationTable.$SectorTable.{$LocSector}.keys.list.indexof.{event.param3.{2}}">
+													<do_if value="$DAGVT.$DAInfestationTable.$SectorTable.{$LocSector}.{event.param3.{2}}?">
 														<!-- Valid sector, valid goal -->
 														<do_if value="not $DAGVT.$DAInfestationTable.$SectorTable.{$LocSector}.{event.param3.{2}}.{4}.indexof.{event.param2}">
 															<add_to_group groupname="$DAGVT.$DAInfestationTable.$SectorTable.{$LocSector}.{event.param3.{2}}" object="event.param2"/>
