@@ -11487,39 +11487,44 @@
 						<set_value name="$LocStorableMacros" exact="[]"/>
 
 						<!-- Check for different deployables/units carried by the unit -->
-						<do_for_each name="$LocStorable" in="$LocParent.ammostorage.deployable.table.keys.list">
+						<do_if value="not ($LocParent.ammostorage == null)">
+							<do_if value="not ($LocParent.ammostorage.deployable == null)">
+								<do_for_each name="$LocStorable" in="$LocParent.ammostorage.deployable.table.keys.list">
 
-							<do_if value="$LocParent.ammostorage.deployable.table.{$LocStorable} gt 0">
-								<do_if value="$DADVT.$DABPDebugEnable">
-									<debug_text text="'MOD: DABP -- EventBPCheckDeployable -- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.ammostorage.deployable.table.{$LocStorable}]" context="false" filter="scripts"/>
-								</do_if>
-								<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
-							</do_if>
-						</do_for_each>
-						<remove_value name="$LocStorable"/>
-
-						<do_for_each name="$LocStorable" in="$LocParent.ammostorage.missile.table.keys.list">
-							
-							<do_if value="$LocParent.ammostorage.missile.table.{$LocStorable} gt 0">
-								<do_if value="$DADVT.$DABPDebugEnable">
-									<debug_text text="'MOD: DABP -- EventBPCheckAmmo -- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.ammostorage.missile.table.{$LocStorable}]" context="false" filter="scripts"/>
-								</do_if>
-								<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
-							</do_if>
-						</do_for_each>
-						<remove_value name="$LocStorable"/>
-						<do_if value="not $LocParent.ammostorage == null">
-							<do_for_each name="$LocStorable" in="$LocParent.ammostorage.countermeasure.table.keys.list">
-								<do_if value="$LocParent.ammostorage.countermeasure.table.{$LocStorable} gt 0">
-									<do_if value="$DADVT.$DABPDebugEnable">
-										<debug_text text="'MOD: DABP -- EventBPCheckCountermeasures-- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.ammostorage.countermeasure.table.{$LocStorable}]" context="false" filter="scripts"/>
+									<do_if value="$LocParent.ammostorage.deployable.table.{$LocStorable} gt 0">
+										<do_if value="$DADVT.$DABPDebugEnable">
+											<debug_text text="'MOD: DABP -- EventBPCheckDeployable -- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.ammostorage.deployable.table.{$LocStorable}]" context="false" filter="scripts"/>
+										</do_if>
+										<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
 									</do_if>
-									<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
-								</do_if>
-							</do_for_each>
-							<remove_value name="$LocStorable"/>
+								</do_for_each>
+								<remove_value name="$LocStorable"/>
+							</do_if>
+
+							<do_if value="not ($LocParent.ammostorage.missile == null)">
+								<do_for_each name="$LocStorable" in="$LocParent.ammostorage.missile.table.keys.list">
+									<do_if value="$LocParent.ammostorage.missile.table.{$LocStorable} gt 0">
+										<do_if value="$DADVT.$DABPDebugEnable">
+											<debug_text text="'MOD: DABP -- EventBPCheckAmmo -- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.ammostorage.missile.table.{$LocStorable}]" context="false" filter="scripts"/>
+										</do_if>
+										<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
+									</do_if>
+								</do_for_each>
+								<remove_value name="$LocStorable"/>
+							</do_if>
+							<do_if value="not ($LocParent.ammostorage.countermeasure == null)">
+								<do_for_each name="$LocStorable" in="$LocParent.ammostorage.countermeasure.table.keys.list">
+									<do_if value="$LocParent.ammostorage.countermeasure.table.{$LocStorable} gt 0">
+										<do_if value="$DADVT.$DABPDebugEnable">
+											<debug_text text="'MOD: DABP -- EventBPCheckCountermeasures-- Id: %s -- Name: %s -- Ware: %s -- Count: %s'.[@$LocStorable.id, @$LocStorable.name, @$LocStorable.ware, @$LocParent.ammostorage.countermeasure.table.{$LocStorable}]" context="false" filter="scripts"/>
+										</do_if>
+										<append_to_list name="$LocStorableMacros" exact="$LocStorable"/>
+									</do_if>
+								</do_for_each>
+								<remove_value name="$LocStorable"/>
+							</do_if>
 						</do_if>
-						<do_if value="not $LocParent.units == null">
+						<do_if value="not ($LocParent.units == null)">
 							<do_for_each name="$LocStorable" in="$LocParent.units.table.keys.list">
 								<do_if value="$LocParent.units.table.{$LocStorable} gt 0">
 									<do_if value="$DADVT.$DABPDebugEnable">
@@ -11531,7 +11536,7 @@
 							<remove_value name="$LocStorable"/>
 						</do_if>
 						
-						<do_if value="not $LocParent.loadout == null">
+						<do_if value="not ($LocParent.loadout == null)">
 							<do_for_each name="$LocWare" in="$LocParent.loadout.wares.list">
 								<do_if value="$LocWare.group.name == 'Thrusters'">
 									<append_to_list name="$LocStorableMacros" exact="$ware.objectmacro"/>

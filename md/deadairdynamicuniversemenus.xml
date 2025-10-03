@@ -7601,7 +7601,7 @@
 							]"/>
 						<!--Create the menu rows.-->
 						<do_for_each name="$Macro" in="$MacroList">
-							<do_if value="$ModuleTable.keys.list.indexof.{$Macro} or $PlannedModuleTable.keys.list.indexof.{$Macro}">
+							<do_if value="$ModuleTable.{$Macro}? or $PlannedModuleTable.{$Macro}?">
 								<signal_cue_instantly cue="md.Simple_Menu_API.Add_Row"/>
 								<signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[$col = 1, $colSpan = 4, $text = $Macro.name, $halign = 'left', $cellBGColor = $DAMVT.$BodyBackgroundBright, $wordwrap = true]" comment="macroname"/>
 								<do_if value="$ModuleTable.{$Macro}?">
